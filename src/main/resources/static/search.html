@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PickPlay - 경기 검색</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        const districts = {
+          "서울특별시": ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구",
+            "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구",
+            "은평구", "종로구", "중구", "중랑구"],
+          "경기도": ["고양시", "과천시", "광명시", "광주시", "구리시", "군포시", "김포시", "남양주시", "동두천시", "부천시", "성남시",
+            "수원시", "시흥시", "안산시", "안성시", "안양시", "양주시", "여주시", "오산시", "용인시", "의왕시", "의정부시", "이천시",
+            "파주시", "평택시", "포천시", "하남시", "화성시"],
+          "부산광역시": ["강서구", "금정구", "기장군", "남구", "동구", "동래구", "부산진구", "북구", "사상구", "서구", "수영구",
+            "연제구", "영도구", "중구", "해운대구"]
+        };
+
+        function openRegionModal() {
+          document.getElementById('region-modal').classList.remove('hidden');
+        }
+
+        function closeRegionModal() {
+          document.getElementById('region-modal').classList.add('hidden');
+        }
+
+        function selectCity(city) {
+          const districtList = document.getElementById('district-list');
+          districtList.innerHTML = '';
+          districts[city].forEach(d => {
+            const btn = document.createElement('button');
+            btn.textContent = d;
+            btn.className = 'block w-full text-left px-4 py-2 hover:bg-blue-100';
+            btn.onclick = () => selectDistrict(city, d);
+            districtList.appendChild(btn);
+          });
+        }
+
+        function selectDistrict(city, district) {
+          document.getElementById('selected-location').textContent = `${city} ${district}`;
+          closeRegionModal();
+        }
+
+        function createTimeSelectOptions(selectId) {
+          const select = document.getElementById(selectId);
+          for (let hour = 1; hour <= 12; hour++) {
+            const formattedHour = hour.toString().padStart(2, '0');
+            const option = document.createElement('option');
+            option.value = `${formattedHour}:00`;
+            option.textContent = `${formattedHour}:00`;
+            select.appendChild(option);
+          }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+          createTimeSelectOptions('search-time');
+        });
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+<header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-blue-600">PickPlay</h1>
+        <nav class="space-x-6 text-sm">
+            <a href="search.html" class="hover:text-blue-500">경기 검색</a>
+            <a href="register.html" class="hover:text-blue-500">경기 등록</a>
+        </nav>
+    </div>
+</header>
+
+<section id="search" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+        <h3 class="text-3xl font-bold mb-10 text-center">경기 검색</h3>
+        <form class="grid grid-cols-1 md:grid-cols-5 gap-6">
+            <input type="date"
+                   class="col-span-1 border border-gray-300 p-4 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-300"/>
+            <select id="search-time"
+                    class="col-span-1 border border-gray-300 p-4 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-300">
+                <option disabled selected>시간 선택</option>
+            </select>
+            <button type="button" onclick="openRegionModal()"
+                    class="col-span-2 border border-gray-300 p-4 rounded-xl shadow-sm bg-white hover:bg-blue-100">지역 선택:
+                <span id="selected-location" class="text-gray-500">선택 안됨</span></button>
+            <button type="submit"
+                    class="col-span-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl shadow">
+                검색하기
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- 지역 선택 모달 -->
+<div id="region-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
+    <div class="bg-white rounded-xl shadow-xl w-3/4 h-3/4 flex overflow-hidden">
+        <div class="w-1/2 border-r overflow-y-auto">
+            <h4 class="font-bold text-lg p-4 border-b">시 선택</h4>
+            <div class="divide-y">
+                <button onclick="selectCity('서울특별시')" class="w-full text-left px-4 py-2 hover:bg-blue-100">서울특별시
+                </button>
+                <button onclick="selectCity('경기도')" class="w-full text-left px-4 py-2 hover:bg-blue-100">경기도</button>
+                <button onclick="selectCity('부산광역시')" class="w-full text-left px-4 py-2 hover:bg-blue-100">부산광역시
+                </button>
+            </div>
+        </div>
+        <div class="w-1/2 overflow-y-auto">
+            <h4 class="font-bold text-lg p-4 border-b">구 선택</h4>
+            <div id="district-list" class="divide-y"></div>
+        </div>
+        <button onclick="closeRegionModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">닫기
+        </button>
+    </div>
+</div>
+
+<footer class="bg-white border-t py-6 text-center text-sm text-gray-500">
+    &copy; 2025 PickPlay. All rights reserved.
+</footer>
+</body>
+</html>
