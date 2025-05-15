@@ -24,9 +24,11 @@ dependencies {
 	testImplementation 'junit:junit:4.13.2'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	runtimeOnly('org.springframework.boot:spring-boot-devtools')
 	compileOnly("org.springframework.boot:spring-boot-devtools")
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+	jvmArgs '-Xshare:off'
 }

@@ -7,8 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
-    @GetMapping("search")
-    public String Search() {
+    @GetMapping("/")
+    public String home() {
+        return "index";
+    }
+
+    @GetMapping("/search")
+    public String search() {
         return "search";
+    }
+
+    @GetMapping("/register")
+    public String register() {
+        return "register";
     }
 }

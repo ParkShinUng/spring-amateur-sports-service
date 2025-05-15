@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PickPlay - 아마추어 스포츠 통합 플랫폼</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Header -->
+<header class="bg-blue-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">
+            <a href="/">PickPlay</a>
+        </h1>
+        <nav class="space-x-6 text-sm">
+            <a href="/search" class="hover:text-yellow-300">경기 검색</a>
+            <a href="/register" class="hover:text-yellow-300">경기 등록</a>
+        </nav>
+    </div>
+</header>
+
+<section class="bg-gray-100 py-12 text-center">
+    <h2 class="text-3xl font-bold mb-4">PickPlay에 오신 것을 환영합니다!</h2>
+    <p class="text-gray-700">아마추어 경기를 함께 즐기세요.</p>
+</section>
+<!-- Hero -->
+<section class="bg-cover bg-center text-white py-20 px-6" style="background-image: url('/images/sports_bg.jpg');">
+    <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4">함께하는 스포츠, 더 즐겁게</h2>
+        <p class="text-lg mb-6">전국 아마추어 스포츠 구장, 경기, 용병, 용품까지 한 곳에서!</p>
+        <div class="flex justify-center">
+            <input type="text" placeholder="지역, 구장 이름 또는 종목 검색"
+                   class="w-full max-w-md px-4 py-2 rounded-l-md text-gray-800 focus:outline-none"
+            />
+            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-md font-semibold">검색</button>
+        </div>
+    </div>
+</section>
+
+<!-- Feature Sections -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-gray-100 p-6 rounded-xl shadow hover:shadow-md text-center">
+            <h3 class="text-xl font-bold text-blue-800 mb-2">🏟 구장 예약</h3>
+            <p class="text-sm">지역별 구장 정보를 확인하고 빠르게 예약하세요.</p>
+        </div>
+        <div class="bg-gray-100 p-6 rounded-xl shadow hover:shadow-md text-center">
+            <h3 class="text-xl font-bold text-blue-800 mb-2">🤝 경기 매칭</h3>
+            <p class="text-sm">운동할 팀 또는 상대 팀을 쉽게 찾아보세요.</p>
+        </div>
+        <div class="bg-gray-100 p-6 rounded-xl shadow hover:shadow-md text-center">
+            <h3 class="text-xl font-bold text-blue-800 mb-2">🧍 용병 구인</h3>
+            <p class="text-sm">지금 가능한 용병을 빠르게 찾아보세요.</p>
+        </div>
+        <div class="bg-gray-100 p-6 rounded-xl shadow hover:shadow-md text-center">
+            <h3 class="text-xl font-bold text-blue-800 mb-2">🛍 스포츠 용품</h3>
+            <p class="text-sm">필요한 스포츠 용품을 합리적인 가격에 구매하세요.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-blue-800 text-white py-6 text-center text-sm">
+    <p>&copy; 2025 PickPlay. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
