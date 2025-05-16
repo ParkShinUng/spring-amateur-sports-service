@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.lang.reflect.Member;
+
 @Controller
 public class MainController {
 
@@ -24,8 +26,12 @@ public class MainController {
     }
 
     @PostMapping("/register/new")
-    public String register()
+    public String register(SupporterForm supporterForm)
     {
+//        Member supporterMember = new Member();
+//        supporterMember.setName(supporterForm.getName());
+
+
         return "redirect:/";
     }
 }
