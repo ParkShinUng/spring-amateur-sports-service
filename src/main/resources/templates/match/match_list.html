@@ -1,0 +1,42 @@
+<html layout:decorate="~{fragments/layout}">
+<div layout:fragment="content">
+  <div class="bg-gray-50 min-h-screen py-10 px-4">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- 게시글 카드 -->
+      <div class="bg-white rounded-2xl shadow-md p-5 hover:shadow-lg transition cursor-pointer">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs text-white bg-orange-500 rounded-full px-3 py-1 font-semibold">축구</span>
+          <span class="text-sm text-gray-400">서울 · 강남</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-800 mb-2">⚽ 6월 15일 토요일 오후 3시 경기 인원 구해요!</h3>
+        <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+          강남구청 근처 풋살장에서 즐겁게 경기하실 분 찾습니다! 실력보다 매너를 우선으로 합니다.
+        </p>
+        <div class="flex justify-between items-center text-sm text-gray-500">
+          <span>모집 인원: <b class="text-gray-800">3명</b></span>
+          <span class="text-green-500 font-medium">모집 중</span>
+        </div>
+      </div>
+
+      <!-- 추가 카드 복제 가능 -->
+      <div class="bg-white rounded-2xl shadow-md p-5 hover:shadow-lg transition cursor-pointer">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs text-white bg-blue-600 rounded-full px-3 py-1 font-semibold">농구</span>
+          <span class="text-sm text-gray-400">부산 · 해운대</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-800 mb-2">🏀 일요일 오후 농구 팀원 모집해요!</h3>
+        <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+          매주 해운대 체육관에서 게임합니다. 꾸준히 나올 수 있는 분 환영!
+        </p>
+        <div class="flex justify-between items-center text-sm text-gray-500">
+          <span>모집 인원: <b class="text-gray-800">2명</b></span>
+          <span class="text-orange-500 font-medium">마감 임박</span>
+        </div>
+      </div>
+
+      <!-- ...더 많은 카드들 -->
+    </div>
+  </div>
+</div>
+</html>

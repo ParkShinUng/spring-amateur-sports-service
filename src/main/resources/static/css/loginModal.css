@@ -1,0 +1,39 @@
+._loginWrapper_p2c7p_57 {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+._button_p2c7p_69 {
+    width: 344px;
+    height: 64px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    gap: 10px;
+}
+
+._loginIconImage_p2c7p_80 {
+    width: 32px;
+    height: 32px;
+}
+
+._loginButtonTitle_p2c7p_85 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+._button_p2c7p_69 {
+    width: 344px;
+    height: 64px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    gap: 10px;
+}
