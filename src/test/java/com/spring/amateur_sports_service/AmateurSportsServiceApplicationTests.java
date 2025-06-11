@@ -1,10 +1,10 @@
-package springstudy.spring_study_workspace;
+package com.spring.amateur_sports_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringStudyWorkspaceApplicationTests {
+class AmateurSportsServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
