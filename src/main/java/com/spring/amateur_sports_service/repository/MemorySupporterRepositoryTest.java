@@ -1,13 +1,11 @@
-package springstudy.spring_study_workspace.repository;
+package com.spring.amateur_sports_service.repository;
 
+import com.spring.amateur_sports_service.domain.Supporter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import springstudy.spring_study_workspace.domain.Supporter;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.*;
 
 class MemorySupporterRepositoryTest {
 
@@ -26,7 +24,7 @@ class MemorySupporterRepositoryTest {
         repository.save(supporter);
 
         Supporter result = repository.findById(supporter.getId()).get();
-        assertThat(supporter).isEqualTo(result);
+        Assertions.assertThat(supporter).isEqualTo(result);
     }
 
     @Test
@@ -41,7 +39,7 @@ class MemorySupporterRepositoryTest {
 
         Supporter result = repository.findByGroundName("우장산축구장").get();
 
-        assertThat(result).isEqualTo(supporter1);
+        Assertions.assertThat(result).isEqualTo(supporter1);
     }
 
     @Test
@@ -56,6 +54,6 @@ class MemorySupporterRepositoryTest {
 
         List<Supporter> result = repository.findAll();
 
-        assertThat(result.size()).isEqualTo(2);
+        Assertions.assertThat(result.size()).isEqualTo(2);
     }
 }

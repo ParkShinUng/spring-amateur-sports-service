@@ -1,10 +1,10 @@
-package springstudy.spring_study_workspace.repository;
+package com.spring.amateur_sports_service.repository;
 
-import springstudy.spring_study_workspace.domain.Supporter;
+import com.spring.amateur_sports_service.domain.Supporter;
 
 import java.util.*;
 
-public class MemorySupporterRepository implements  SupporterRepository {
+public class MemorySupporterRepository implements SupporterRepository {
 
     private static Map<Long, Supporter> store = new HashMap<>();
     private static long sequence = 0L;

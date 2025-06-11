@@ -1,6 +1,6 @@
-package springstudy.spring_study_workspace.repository;
+package com.spring.amateur_sports_service.repository;
 
-import springstudy.spring_study_workspace.domain.Supporter;
+import com.spring.amateur_sports_service.domain.Supporter;
 
 import java.util.List;
 import java.util.Optional;

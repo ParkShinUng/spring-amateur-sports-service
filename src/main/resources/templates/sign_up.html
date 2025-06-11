@@ -1,0 +1,14 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <!-- register.html -->
+    <div class="max-w-md mx-auto mt-20 bg-white p-8 shadow rounded">
+        <h2 class="text-2xl font-bold mb-6">회원가입</h2>
+        <form action="/register" method="post" class="space-y-4">
+            <input type="text" name="username" placeholder="아이디" class="w-full px-4 py-2 border rounded" required>
+            <input type="password" name="password" placeholder="비밀번호" class="w-full px-4 py-2 border rounded" required>
+            <input type="email" name="email" placeholder="이메일" class="w-full px-4 py-2 border rounded" required>
+            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">가입하기</button>
+        </form>
+    </div>
+</div>
+</html>

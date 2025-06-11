@@ -1,4 +1,4 @@
-package springstudy.spring_study_workspace.controller;
+package com.spring.amateur_sports_service.controller;
 
 public class SupporterForm {
     private String groundName;

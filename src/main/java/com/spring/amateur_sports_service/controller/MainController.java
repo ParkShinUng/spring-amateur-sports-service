@@ -1,5 +1,6 @@
-package springstudy.spring_study_workspace.controller;
+package com.spring.amateur_sports_service.controller;
 
+import com.spring.amateur_sports_service.controller.SupporterForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

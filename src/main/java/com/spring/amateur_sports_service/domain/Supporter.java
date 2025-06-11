@@ -1,4 +1,4 @@
-package springstudy.spring_study_workspace.domain;
+package com.spring.amateur_sports_service.domain;
 
 import java.util.Date;
 
