@@ -3,82 +3,13 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no"/>
-<!--    <meta name="_csrf" th:content="${_csrf.token}">-->
-<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
+    <!--    <meta name="_csrf" th:content="${_csrf.token}">-->
+    <!--    <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/loginModal.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=SUIT:wght@400;600;700&display=swap" rel="stylesheet">
     <th:block layout:fragment="style"></th:block>
     <style>
-        /* 전체 섹션 스타일 /
-        .sports-section {
-        background-color: #f7f9fc; / 부드러운 배경 색상 /
-        padding: 40px 20px; / 패딩 추가 /
-        border-radius: 8px; / 모서리 둥글게 /
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); / 그림자 효과 */
-        }
-
-        /* 헤더 스타일 /
-        .sports-section h2 {
-        font-size: 2em; / 헤더 크기 /
-        color: #2c3e50; / 진한 색상 /
-        text-align: center; / 중앙 정렬 /
-        margin-bottom: 20px; / 아래쪽 여백 */
-        }
-
-        /* 정보 카드 스타일 /
-        .sport-card {
-        background-color: #ffffff; / 카드 배경색 /
-        border-radius: 5px; / 카드 모서리 둥글게 /
-        padding: 15px; / 카드 패딩 /
-        margin: 15px 0; / 카드 간격 /
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); / 카드 그림자 /
-        transition: transform 0.2s; / 마우스 호버시 애니메이션 효과 */
-        }
-
-        .sport-card:hover {
-        transform: translateY(-3px); /* 호버시 카드 위로 이동 */
-        }
-
-        /* 카드 제목 /
-        .sport-card h3 {
-        margin: 0; / 기본 여백 제거 /
-        font-size: 1.5em; / 제목 크기 /
-        color: #2980b9; / 카드 제목 색상 */
-        }
-
-        /* 카드 설명 /
-        .sport-card p {
-        font-size: 0.9em; / 설명 글씨 크기 /
-        color: #34495e; / 설명 글씨 색상 /
-        margin-top: 10px; / 상단 여백 */
-        }
-
-        /* 반응형 디자인 /
-        @media (max-width: 768px) {
-        .sports-section {
-        padding: 20px; / 패딩 조정 */
-        }
-
-        .sport-card {
-        margin: 10px 0; /* 카드 간격 조정 */
-        }
-
-        .sports-section h2 {
-        font-size: 1.5em; /* 헤더 크기 축소 */
-        }
-
-    ._loginElementWrapper_1sy3a_34 {
-        display: flex;
-        gap: 30px;
-        align-items: center;
-    }
-
-    ._logo_1sy3a_40 {
-        width: 105px;
-        height: auto;
-        cursor: pointer;
-    }
-
     img {
         overflow-clip-margin: content-box;
         overflow: clip;
@@ -154,6 +85,18 @@
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
     }
 
+    ._loginElementWrapper_1sy3a_34 {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+    }
+
+    ._logo_1sy3a_40 {
+        width: 105px;
+        height: auto;
+        cursor: pointer;
+    }
+
     /* ✅ 반응형 스타일 적용 */
     @media (max-width: 768px) {
       nav {
@@ -212,15 +155,47 @@
 </head>
 <body class="min-h-screen bg-gradient-to-bl from-rose-100 via-indigo-100 to-blue-100">
 <!-- 네비게이션 바 -->
-<nav th:replace="~{navbar :: navbarFragment}"></nav>
+<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 <th:block layout:fragment="content" class="mt-24"></th:block>
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
 <!-- Javascript Start -->
 <th:block layout:fragment="script"></th:block>
+<!-- 공통 스크립트 삽입 -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const open = document.getElementById("open-login-modal");
+      const close = document.getElementById("close-login-modal");
+      const modal = document.getElementById("login-modal");
+      const content = modal.querySelector("div");
+
+      if (!open || !close || !modal || !content) return;
+
+      const show = () => {
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+          modal.classList.add("flex");
+          content.classList.remove("scale-95");
+        }, 10);
+      };
+      const hide = () => {
+        content.classList.add("scale-95");
+        setTimeout(() => {
+          modal.classList.remove("flex");
+          modal.classList.add("hidden");
+        }, 200);
+      };
+
+      open.addEventListener("click", show);
+      close.addEventListener("click", hide);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) hide();
+      });
+});
+</script>
 <!-- Footer -->
 <footer class="border-t mt-12 pt-4 text-center text-sm text-gray-500">
-    &copy; 2025 스포츠매칭. All rights reserved.
+    &copy; 2025 Moda. All rights reserved.
 </footer>
 </body>
 </html>

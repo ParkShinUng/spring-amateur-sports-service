@@ -13,7 +13,7 @@ public class MainController {
 
     @GetMapping("/")
     public String home() {
-        return "index";
+        return "home/index";
     }
 
     @GetMapping("/search")
@@ -31,8 +31,6 @@ public class MainController {
     {
 //        Member supporterMember = new Member();
 //        supporterMember.setName(supporterForm.getName());
-
-
         return "redirect:/";
     }
 }
