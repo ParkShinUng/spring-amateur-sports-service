@@ -191,7 +191,59 @@
       modal.addEventListener("click", (e) => {
         if (e.target === modal) hide();
       });
-});
+    });
+
+    const regionData = {
+    "서울특별시": {
+      "강남구": ["역삼동", "신사동", "논현동"],
+      "마포구": ["합정동", "서교동"]
+    },
+    "경기도": {
+      "수원시": ["영통동", "권선동"],
+      "용인시": ["수지구", "기흥구"]
+    }
+  };
+
+  const sidoSelect = document.getElementById("sidoSelect");
+  const sigunguSelect = document.getElementById("sigunguSelect");
+  const dongSelect = document.getElementById("dongSelect");
+
+  sidoSelect.addEventListener("change", function () {
+    const selectedSido = this.value;
+    sigunguSelect.innerHTML = `<option value="">선택</option>`;
+    dongSelect.innerHTML = `<option value="">군/구를 먼저 선택하세요</option>`;
+    dongSelect.disabled = true;
+
+    if (selectedSido && regionData[selectedSido]) {
+      sigunguSelect.disabled = false;
+      Object.keys(regionData[selectedSido]).forEach(sigungu => {
+        const option = document.createElement("option");
+        option.value = sigungu;
+        option.text = sigungu;
+        sigunguSelect.appendChild(option);
+      });
+    } else {
+      sigunguSelect.disabled = true;
+    }
+  });
+
+  sigunguSelect.addEventListener("change", function () {
+    const selectedSido = sidoSelect.value;
+    const selectedSigungu = this.value;
+    dongSelect.innerHTML = `<option value="">선택</option>`;
+
+    if (regionData[selectedSido]?.[selectedSigungu]) {
+      dongSelect.disabled = false;
+      regionData[selectedSido][selectedSigungu].forEach(dong => {
+        const option = document.createElement("option");
+        option.value = dong;
+        option.text = dong;
+        dongSelect.appendChild(option);
+      });
+    } else {
+      dongSelect.disabled = true;
+    }
+  });
 </script>
 <!-- Footer -->
 <footer class="border-t mt-12 pt-4 text-center text-sm text-gray-500">
