@@ -31,7 +31,7 @@ class AmateurSportsServiceApplicationTests {
 		match.setEndTime(LocalDateTime.now());
 		match.setCreateDate(LocalDateTime.now());
 
-		match.setTeamName("Test name 1");
+		match.setNickname("Test nickname 1");
 		match.setLevel("Test Level 1");
 		match.setPhoneNumber("Test Phone Number 1");
 

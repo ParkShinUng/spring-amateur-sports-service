@@ -6,7 +6,9 @@
       <tr>
         <th>번호</th>
         <th>제목</th>
-        <th>작성일시</th>
+        <th>지역</th>
+        <th>작성자</th>
+        <th>작성일</th>
       </tr>
       </thead>
       <tbody>
@@ -15,12 +17,15 @@
         <td>
           <a th:href="@{|/match/detail/${match.id}|}" th:text="${match.title}"></a>
         </td>
+        <td th:text="${match.stadiumLocation}"></td>
+        <td th:text="${match.nickname}"></td>
         <td th:text="${#temporals.format(match.createDate, 'yyyy-MM-dd HH:mm')}"></td>
       </tr>
       </tbody>
     </table>
     <a th:href="@{/match/register}" class="btn btn-primary">매칭 등록하기</a>
   </div>
+
   <div class="p-6 sm:p-10 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white min-h-screen">
     <!-- Title -->
     <div class="mb-8 text-center">
