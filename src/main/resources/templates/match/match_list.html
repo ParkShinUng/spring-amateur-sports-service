@@ -1,5 +1,26 @@
 <html layout:decorate="~{fragments/layout}">
 <div layout:fragment="content">
+  <div class="container my-3">
+    <table class="table">
+      <thead class="table-dark">
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성일시</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="match, loop : ${matchList}">
+        <td th:text="${loop.count}"></td>
+        <td>
+          <a th:href="@{|/match/detail/${match.id}|}" th:text="${match.title}"></a>
+        </td>
+        <td th:text="${#temporals.format(match.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+      </tr>
+      </tbody>
+    </table>
+    <a th:href="@{/match/register}" class="btn btn-primary">매칭 등록하기</a>
+  </div>
   <div class="p-6 sm:p-10 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white min-h-screen">
     <!-- Title -->
     <div class="mb-8 text-center">

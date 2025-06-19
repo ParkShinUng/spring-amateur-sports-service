@@ -1,0 +1,85 @@
+<html layout:decorate="~{fragments/layout}">
+<div layout:fragment="content" class="container">
+  <h1 class="text-3xl font-bold mb-8 text-center">🏟️ 매칭 게시글 등록</h1>
+  <form th:action="@{/match/register}" th:object="${matchRegisterForm}" method="post">
+    <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
+    <div class="mb-3">
+      <label for="title" class="form-label">게시글 제목 <span class="text-red-500">*</span></label>
+      <input type="text" th:field="*{title}" id="title" class="form-control">
+      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+    </div>
+    <div class="mb-3">
+      <label for="title" class="form-label">스포츠 종목 <span class="text-red-500">*</span></label>
+      <select th:field="*{sportsKind}" class="w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800">
+        <option value="">선택</option>
+        <option th:each="kind : ${sportsKindList}" th:value="${kind}" th:text="${kind}"></option>
+      </select>
+      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('sportsKind')}" th:errors="*{sportsKind}"></p>
+    </div>
+    <div class="mb-3">
+      <label for="stadium" class="form-label">경기장 이름 <span class="text-red-500">*</span></label>
+      <input type="text" th:field="*{stadium}" id="stadium" class="form-control">
+      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('stadium')}" th:errors="*{stadium}"></p>
+    </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">경기장 위치 <span class="text-red-500">*</span></label>
+      <input type="text" th:field="*{location}" class="form-control">
+      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
+    </div>
+    <!-- 경기 시간 -->
+    <div class="mb-3">
+      <label class="form-label">경기 시작 시간 <span class="text-red-500">*</span></label>
+      <input type="datetime-local" th:field="*{startDateTime}" class="form-control">
+      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('startDateTime')}" th:errors="*{startDateTime}"></p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">경기 종료 시간 <span class="text-red-500">*</span></label>
+      <input type="datetime-local" th:field="*{endDateTime}" class="form-control">
+      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('endDateTime')}" th:errors="*{endDateTime}"></p>
+    </div>
+    <!-- 상세 정보 -->
+    <div class="mb-3">
+      <label class="form-label">활동명 (팀 이름) <span class="text-red-500">*</span></label>
+      <input type="text" th:field="*{teamName}" class="form-control">
+      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('teamName')}" th:errors="*{teamName}"></p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">경기 수준 <span class="text-red-500">*</span></label>
+      <select th:field="*{level}" class="form-control">
+        <option value="">선택</option>
+        <option value="초급">초급</option>
+        <option value="중급">중급</option>
+        <option value="상급">상급</option>
+      </select>
+      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('level')}" th:errors="*{level}"></p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">연락처 (선택)</label>
+      <input type="text" th:field="*{phoneNumber}" class="form-control">
+    </div>
+
+    <!-- 비용 정보 -->
+    <div class="mb-3">
+      <div class="w-full md:w-1/2">
+        <label class="form-label">경기장 총 비용 (₩) <span class="text-red-500">*</span></label>
+        <input type="text" th:field="*{totalPrice}" class="form-control">
+        <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('totalPrice')}" th:errors="*{totalPrice}"></p>
+      </div>
+      <div class="w-full md:w-1/2">
+        <label class="form-label">상대팀 부담 비용 (₩) <span class="text-red-500">*</span></label>
+        <input type="text" th:field="*{cost}" class="form-control">
+        <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">기타 내용(경기 방식 및 규칙, 참고 사항, 전달 사항 등)</label>
+      <textarea th:field="*{content}" rows="3" class="w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">내용</label>
+      <textarea name="content" id="content" class="form-control" rows="10"></textarea>
+    </div>
+    <input type="submit" value="저장하기" class="btn btn-primary my-2">
+  </form>
+</div>
+</html>
