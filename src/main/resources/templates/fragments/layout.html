@@ -12,9 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=SUIT:wght@400;600;700&display=swap" rel="stylesheet">
     <th:block layout:fragment="style"></th:block>
     <style>
-    img {
+    img.img-logo {
         overflow-clip-margin: content-box;
         overflow: clip;
+        width: 200px;
+        height: 200px;
     }
 
     body {
@@ -33,37 +35,11 @@
       z-index: 1000;
     }
 
-    nav {
-      margin: 0 auto;
-      padding: 0 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
     .logo {
       font-size: 1.6rem;
       font-weight: bold;
       color: #5c6ac4;
       text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: #333;
-      font-size: 1rem;
-      padding: 6px 12px;
-      border-radius: 8px;
-      transition: background 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      background-color: #f0f0f0;
     }
 
     main {
@@ -101,25 +77,6 @@
 
     /* ✅ 반응형 스타일 적용 */
     @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav-links {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 10px;
-      }
-
-      .nav-links a {
-        width: 100%;
-        padding: 10px;
-        font-size: 1.1rem;
-        background-color: #f9f9f9;
-        border-radius: 12px;
-      }
-
       .page-title {
         font-size: 1.5rem;
         margin-bottom: 20px;
@@ -156,100 +113,100 @@
     <title>스포츠 매칭 플랫폼</title>
 </head>
 <body class="min-h-screen bg-gradient-to-bl from-rose-100 via-indigo-100 to-blue-100">
-<!-- 네비게이션 바 -->
-<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
-<!-- 기본 템플릿 안에 삽입될 내용 Start -->
-<th:block layout:fragment="content" class="mt-24"></th:block>
-<!-- 기본 템플릿 안에 삽입될 내용 End -->
-<!-- Javascript Start -->
-<th:block layout:fragment="script"></th:block>
-<!-- 공통 스크립트 삽입 -->
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const open = document.getElementById("open-login-modal");
-      const close = document.getElementById("close-login-modal");
-      const modal = document.getElementById("login-modal");
-      const content = modal.querySelector("div");
+    <!-- 네비게이션 바 -->
+    <nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
+    <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+    <th:block layout:fragment="content" class="mt-24"></th:block>
+    <!-- 기본 템플릿 안에 삽입될 내용 End -->
+    <!-- Javascript Start -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- 공통 스크립트 삽입 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const open = document.getElementById("open-login-modal");
+          const close = document.getElementById("close-login-modal");
+          const modal = document.getElementById("login-modal");
+          const content = modal.querySelector("div");
 
-      if (!open || !close || !modal || !content) return;
+          if (!open || !close || !modal || !content) return;
 
-      const show = () => {
-        modal.classList.remove("hidden");
-        setTimeout(() => {
-          modal.classList.add("flex");
-          content.classList.remove("scale-95");
-        }, 10);
+          const show = () => {
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+              modal.classList.add("flex");
+              content.classList.remove("scale-95");
+            }, 10);
+          };
+          const hide = () => {
+            content.classList.add("scale-95");
+            setTimeout(() => {
+              modal.classList.remove("flex");
+              modal.classList.add("hidden");
+            }, 200);
+          };
+
+          open.addEventListener("click", show);
+          close.addEventListener("click", hide);
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) hide();
+          });
+        });
+
+        const regionData = {
+        "서울특별시": {
+          "강남구": ["역삼동", "신사동", "논현동"],
+          "마포구": ["합정동", "서교동"]
+        },
+        "경기도": {
+          "수원시": ["영통동", "권선동"],
+          "용인시": ["수지구", "기흥구"]
+        }
       };
-      const hide = () => {
-        content.classList.add("scale-95");
-        setTimeout(() => {
-          modal.classList.remove("flex");
-          modal.classList.add("hidden");
-        }, 200);
-      };
 
-      open.addEventListener("click", show);
-      close.addEventListener("click", hide);
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) hide();
+      const sidoSelect = document.getElementById("sidoSelect");
+      const sigunguSelect = document.getElementById("sigunguSelect");
+      const dongSelect = document.getElementById("dongSelect");
+
+      sidoSelect.addEventListener("change", function () {
+        const selectedSido = this.value;
+        sigunguSelect.innerHTML = `<option value="">선택</option>`;
+        dongSelect.innerHTML = `<option value="">군/구를 먼저 선택하세요</option>`;
+        dongSelect.disabled = true;
+
+        if (selectedSido && regionData[selectedSido]) {
+          sigunguSelect.disabled = false;
+          Object.keys(regionData[selectedSido]).forEach(sigungu => {
+            const option = document.createElement("option");
+            option.value = sigungu;
+            option.text = sigungu;
+            sigunguSelect.appendChild(option);
+          });
+        } else {
+          sigunguSelect.disabled = true;
+        }
       });
-    });
 
-    const regionData = {
-    "서울특별시": {
-      "강남구": ["역삼동", "신사동", "논현동"],
-      "마포구": ["합정동", "서교동"]
-    },
-    "경기도": {
-      "수원시": ["영통동", "권선동"],
-      "용인시": ["수지구", "기흥구"]
-    }
-  };
+      sigunguSelect.addEventListener("change", function () {
+        const selectedSido = sidoSelect.value;
+        const selectedSigungu = this.value;
+        dongSelect.innerHTML = `<option value="">선택</option>`;
 
-  const sidoSelect = document.getElementById("sidoSelect");
-  const sigunguSelect = document.getElementById("sigunguSelect");
-  const dongSelect = document.getElementById("dongSelect");
-
-  sidoSelect.addEventListener("change", function () {
-    const selectedSido = this.value;
-    sigunguSelect.innerHTML = `<option value="">선택</option>`;
-    dongSelect.innerHTML = `<option value="">군/구를 먼저 선택하세요</option>`;
-    dongSelect.disabled = true;
-
-    if (selectedSido && regionData[selectedSido]) {
-      sigunguSelect.disabled = false;
-      Object.keys(regionData[selectedSido]).forEach(sigungu => {
-        const option = document.createElement("option");
-        option.value = sigungu;
-        option.text = sigungu;
-        sigunguSelect.appendChild(option);
+        if (regionData[selectedSido]?.[selectedSigungu]) {
+          dongSelect.disabled = false;
+          regionData[selectedSido][selectedSigungu].forEach(dong => {
+            const option = document.createElement("option");
+            option.value = dong;
+            option.text = dong;
+            dongSelect.appendChild(option);
+          });
+        } else {
+          dongSelect.disabled = true;
+        }
       });
-    } else {
-      sigunguSelect.disabled = true;
-    }
-  });
-
-  sigunguSelect.addEventListener("change", function () {
-    const selectedSido = sidoSelect.value;
-    const selectedSigungu = this.value;
-    dongSelect.innerHTML = `<option value="">선택</option>`;
-
-    if (regionData[selectedSido]?.[selectedSigungu]) {
-      dongSelect.disabled = false;
-      regionData[selectedSido][selectedSigungu].forEach(dong => {
-        const option = document.createElement("option");
-        option.value = dong;
-        option.text = dong;
-        dongSelect.appendChild(option);
-      });
-    } else {
-      dongSelect.disabled = true;
-    }
-  });
-</script>
-<!-- Footer -->
-<footer class="border-t mt-12 pt-4 text-center text-sm text-gray-500">
-    &copy; 2025 Moda. All rights reserved.
-</footer>
+    </script>
+    <!-- Footer -->
+    <footer class="border-t mt-12 pt-4 text-center text-sm text-gray-500">
+        &copy; 2025 Moda. All rights reserved.
+    </footer>
 </body>
 </html>

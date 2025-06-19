@@ -1,63 +1,61 @@
 <!-- fragments/navbar.html -->
-<nav th:fragment="navbarFragment"
-     class="bg-white shadow-md py-3 px-6 flex justify-between items-center sticky top-0 z-50 border-b border-gray-100">
-
-    <!-- 로고 영역 -->
-    <div class="flex items-center space-x-2">
-        <a href="/">
-            <img src="/images/moda_logo.png" alt="Moda Logo" class="h-8 w-auto _logo_1sy3a_40" />
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <!-- 로고 영역 -->
+        <a class="navbar-brand" href="/">
+            <img src="/images/moda_logo.png" alt="Moda Logo" class="img-logo" />
         </a>
-    </div>
-
-    <!-- 메뉴 영역 -->
-    <div class="md:flex space-x-20 text-gray-700 font-medium _loginElementWrapper_1sy3a_34">
-        <a href="/match/list" class="hover:text-orange-500 transition">매칭</a>
-        <a href="#" class="hover:text-orange-500 transition">용병</a>
-        <a href="#" class="hover:text-orange-500 transition">양도</a>
-        <a href="#" class="hover:text-red-500 transition">피해 신고</a>
-        <a href="#" class="hover:text-red-500 transition">비매너 등록</a>
-        <button id="open-login-modal" class="text-orange-500 hover:underline font-medium">
-            로그인
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-    </div>
 
-    <!-- 모바일 메뉴 아이콘 -->
-    <div class="md:hidden">
-        <button id="mobile-menu-btn" class="text-gray-700 focus:outline-none">
-            <!-- 햄버거 아이콘 -->
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
-    </div>
-    <div id="login-modal" role="dialog"
-         class="fixed inset-0 backdrop-blur-sm hidden items-center justify-center z-50 transition-opacity duration-200"
-         style="background-color: rgba(0, 0, 0, 0.60);">
-        <div class="bg-white rounded-xl shadow-lg w-[90%] max-w-md p-6 relative">
-            <button id="close-login-modal"
-                    class="absolute top-3 right-6 text-gray-400 hover:text-orange-500 text-xl font-bold leading-none">
-                ✕
-            </button>
-            <div class="text-center mb-6">
-                <img src="/images/moda_logo.png" alt="Moda 로고" class="h-12 mx-auto mb-3">
-                <h2 class="text-2xl font-semibold text-gray-800">로그인</h2>
-                <p class="mt-2 text-sm text-gray-500">아마추어 스포츠, 모다와 함께하세요</p>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/match/list">매칭</a>
+                    <a class="nav-link" href="#">용병</a>
+                    <a class="nav-link" href="#" >양도</a>
+                    <a class="nav-link" href="#" >피해 신고</a>
+                    <a class="nav-link" href="#" >비매너 등록</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="open-login-modal">로그인</a>
+<!--                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}" id="open-login-modal">로그인</a>-->
+<!--                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+                </li>
+            </ul>
+        </div>
+
+        <div id="login-modal" role="dialog"
+             class="fixed inset-0 backdrop-blur-sm hidden items-center justify-center z-50 transition-opacity duration-200"
+             style="background-color: rgba(0, 0, 0, 0.60);">
+            <div class="bg-white rounded-xl shadow-lg w-[90%] max-w-md p-6 relative">
+                <button id="close-login-modal"
+                        class="absolute top-3 right-6 text-gray-400 hover:text-orange-500 text-xl font-bold leading-none">
+                    ✕
+                </button>
+                <div class="text-center mb-6">
+                    <img src="/images/moda_logo.png" alt="Moda 로고" class="h-12 mx-auto mb-3">
+                    <h2 class="text-2xl font-semibold text-gray-800">로그인</h2>
+                    <p class="mt-2 text-sm text-gray-500">아마추어 스포츠, 모다와 함께하세요</p>
+                </div>
+                <section class="_loginWrapper_p2c7p_57">
+                    <button class="_button_p2c7p_69" style="background-color: white; border: 1px solid rgb(230, 230, 230); color: rgb(0, 0, 0);">
+                        <img class="_loginIconImage_p2c7p_80" src="/images/socialIcon/google.png" alt="google login">
+                        <div class="_loginButtonTitle_p2c7p_85">Google 로그인</div>
+                    </button>
+                    <button class="_button_p2c7p_69 hidden" style="background-color: black; color: var(--White);">
+                        <img class="_loginIconImage_p2c7p_80" src="/images/socialIcon/naver.png" alt="naver login">
+                        <div class="_loginButtonTitle_p2c7p_85">Naver 로그인</div>
+                    </button>
+                    <button class="_button_p2c7p_69 hidden" style="background-color: rgb(255, 235, 59); border: 1px solid rgb(230, 230, 230); color: rgb(0, 0, 0);">
+                        <img class="_loginIconImage_p2c7p_80" src="/images/socialIcon/kakao.png" alt="kakao login">
+                        <div class="_loginButtonTitle_p2c7p_85">Kakao 로그인</div>
+                    </button>
+                </section>
             </div>
-            <section class="_loginWrapper_p2c7p_57">
-                <button class="_button_p2c7p_69" style="background-color: white; border: 1px solid rgb(230, 230, 230); color: rgb(0, 0, 0);">
-                    <img class="_loginIconImage_p2c7p_80" src="/images/socialIcon/google.png" alt="google login">
-                    <div class="_loginButtonTitle_p2c7p_85">Google 로그인</div>
-                </button>
-                <button class="_button_p2c7p_69 hidden" style="background-color: black; color: var(--White);">
-                    <img class="_loginIconImage_p2c7p_80" src="/images/socialIcon/naver.png" alt="naver login">
-                    <div class="_loginButtonTitle_p2c7p_85">Naver 로그인</div>
-                </button>
-                <button class="_button_p2c7p_69 hidden" style="background-color: rgb(255, 235, 59); border: 1px solid rgb(230, 230, 230); color: rgb(0, 0, 0);">
-                    <img class="_loginIconImage_p2c7p_80" src="/images/socialIcon/kakao.png" alt="kakao login">
-                    <div class="_loginButtonTitle_p2c7p_85">Kakao 로그인</div>
-                </button>
-            </section>
         </div>
     </div>
 </nav>
