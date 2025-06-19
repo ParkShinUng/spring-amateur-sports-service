@@ -1,6 +1,6 @@
 package com.spring.amateur_sports_service.controller;
 
-import com.spring.amateur_sports_service.form.UserSignUpForm;
+import com.spring.amateur_sports_service.dto.UserSignUpForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
