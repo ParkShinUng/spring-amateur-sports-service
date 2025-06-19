@@ -35,7 +35,7 @@ public class MatchService {
         match.setStadiumLocation(matchRegisterForm.getLocation());
         match.setCategory("Match");
         match.setKind(matchRegisterForm.getSportsKind());
-        match.setTeamName(matchRegisterForm.getTeamName());
+        match.setNickname(matchRegisterForm.getNickname());
         match.setStartTime(matchRegisterForm.getStartDateTime());
         match.setEndTime(matchRegisterForm.getEndDateTime());
         match.setStadiumName(matchRegisterForm.getStadium());

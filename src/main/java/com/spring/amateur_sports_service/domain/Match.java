@@ -28,7 +28,7 @@ public class Match {
 
 //    @ManyToOne
 //    private SiteUser author;
-    private String teamName;
+    private String nickname;
 
     private LocalDateTime startTime;
 

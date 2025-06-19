@@ -26,7 +26,7 @@ public class MatchRegisterForm {
     private String category;
 
     @NotEmpty(message = "활동명은 필수 항목입니다.")
-    private String teamName;
+    private String nickname;
 
     @NotEmpty(message = "경기 시작 시간은 필수 항목입니다")
     private LocalDateTime startDateTime;

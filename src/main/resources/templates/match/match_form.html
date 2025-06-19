@@ -39,9 +39,9 @@
     </div>
     <!-- 상세 정보 -->
     <div class="mb-3">
-      <label class="form-label">활동명 (팀 이름) <span class="text-red-500">*</span></label>
-      <input type="text" th:field="*{teamName}" class="form-control">
-      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('teamName')}" th:errors="*{teamName}"></p>
+      <label class="form-label">활동명 (팀명) <span class="text-red-500">*</span></label>
+      <input type="text" th:field="*{nickname}" class="form-control">
+      <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></p>
     </div>
     <div class="mb-3">
       <label class="form-label">경기 수준 <span class="text-red-500">*</span></label>
