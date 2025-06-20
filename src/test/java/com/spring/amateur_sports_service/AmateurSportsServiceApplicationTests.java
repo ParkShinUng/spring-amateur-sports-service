@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @SpringBootTest
 class AmateurSportsServiceApplicationTests {
@@ -21,26 +23,30 @@ class AmateurSportsServiceApplicationTests {
 
 	@Test
 	void testCreateMatch() {
-		Match match = new Match();
-		match.setTitle("Test Title 1");
-		match.setKind("Test kind 1");
-		match.setStadiumName("Test Stadium 1");
-		match.setStadiumLocation("Test Stadium Location 1");
+		for (int i = 2; i < 7; i++)
+		{
+			Match match = new Match();
+			match.setTitle("Test Title " + i);
+			match.setKind("Test kind " + i);
+			match.setStadiumName("Test Stadium " + i);
+			match.setStadiumLocation("Test Stadium Location " + i);
 
-		match.setStartTime(LocalDateTime.now());
-		match.setEndTime(LocalDateTime.now());
-		match.setCreateDate(LocalDateTime.now());
+			match.setMatchDate(LocalDate.now());
+			match.setStartTime(LocalTime.now());
+			match.setEndTime(LocalTime.now());
+			match.setCreateDate(LocalDateTime.now());
 
-		match.setNickname("Test nickname 1");
-		match.setLevel("Test Level 1");
-		match.setPhoneNumber("Test Phone Number 1");
+			match.setNickname("Test nickname " + i);
+			match.setLevel("Test Level " + i);
+			match.setPhoneNumber("Test Phone Number " + i);
 
-		match.setTotalPrice("Test Total Price 1");
-		match.setCost("Test Cost 1");
+			match.setTotalPrice("Test Total Price " + i);
+			match.setCost("Test Cost " + i);
 
-		match.setContent("Test Content 1");
+			match.setContent("Test Content " + i);
 
-		this.matchRepository.save(match);
+			this.matchRepository.save(match);
+		}
 	}
 
 }
