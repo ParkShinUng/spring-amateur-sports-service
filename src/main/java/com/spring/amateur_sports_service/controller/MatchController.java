@@ -32,13 +32,6 @@ public class MatchController {
         return "/match/match_list";
     }
 
-    @GetMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id) {
-        Match match = this.matchService.getMatch(id);
-        model.addAttribute("match", match);
-        return "/match/match_detail";
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<MatchDto> getMatchDetail(@PathVariable Integer id) {
         Match match = this.matchService.getMatch(id);
@@ -57,7 +50,7 @@ public class MatchController {
     public String register(@Valid MatchRegisterForm matchRegisterForm, Model model,
                            BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
-            return "match/register";
+            return "redirect:/match/register";
         }
 
         this.matchService.create(matchRegisterForm);

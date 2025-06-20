@@ -22,8 +22,6 @@
         <tr th:each="match, loop : ${matchList}">
           <td th:text="${loop.count}"></td>
           <td class="text-start">
-<!--            <a th:href="@{|/match/detail/${match.id}|}" class="text-decoration-none text-primary fw-semibold match-detail-link"-->
-<!--               th:data-id="${match.id}" th:text="${match.title}"></a>-->
             <a href="#" class="text-decoration-none text-primary fw-semibold match-detail-link"
                th:data-id="${match.id}" th:text="${match.title}"></a>
           </td>
