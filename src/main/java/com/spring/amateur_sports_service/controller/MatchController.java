@@ -1,10 +1,12 @@
 package com.spring.amateur_sports_service.controller;
 
 import com.spring.amateur_sports_service.domain.Match;
+import com.spring.amateur_sports_service.dto.MatchDto;
 import com.spring.amateur_sports_service.dto.MatchRegisterForm;
 import com.spring.amateur_sports_service.service.MatchService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +37,12 @@ public class MatchController {
         Match match = this.matchService.getMatch(id);
         model.addAttribute("match", match);
         return "/match/match_detail";
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MatchDto> getMatchDetail(@PathVariable Integer id) {
+        Match match = this.matchService.getMatch(id);
+        return ResponseEntity.ok(new MatchDto(match));
     }
 
     @GetMapping("/register")
