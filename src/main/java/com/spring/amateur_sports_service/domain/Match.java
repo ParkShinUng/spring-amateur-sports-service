@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -30,9 +32,11 @@ public class Match {
 //    private SiteUser author;
     private String nickname;
 
-    private LocalDateTime startTime;
+    private LocalDate matchDate;
 
-    private LocalDateTime endTime;
+    private LocalTime startTime;
+
+    private LocalTime endTime;
 
     private String level;
 

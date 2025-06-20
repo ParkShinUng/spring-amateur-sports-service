@@ -1,302 +1,302 @@
 <html layout:decorate="~{fragments/layout}">
 <div layout:fragment="content">
-  <div class="container my-4">
+    <div class="container my-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="fw-bold mb-0">📋 매칭 리스트</h3>
-      <a th:href="@{/match/register}" class="btn btn-primary">+ 매칭 등록하기</a>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="fw-bold mb-0">📋 매칭 리스트</h3>
+            <a th:href="@{/match/register}" class="btn btn-primary">+ 매칭 등록하기</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-dark">
+                <tr>
+                    <th style="width: 60px;">번호</th>
+                    <th>제목</th>
+                    <th style="width: 150px;">지역</th>
+                    <th style="width: 120px;">작성자</th>
+                    <th style="width: 180px;">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="match, loop : ${matchList}">
+                    <td th:text="${loop.count}"></td>
+                    <td class="text-start">
+                        <a href="#" class="text-decoration-none text-primary fw-semibold match-detail-link"
+                           th:data-id="${match.id}" th:text="${match.title}"></a>
+                    </td>
+                    <td th:text="${match.stadiumLocation}"></td>
+                    <td th:text="${match.nickname}"></td>
+                    <td th:text="${#temporals.format(match.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-hover align-middle text-center">
-        <thead class="table-dark">
-        <tr>
-          <th style="width: 60px;">번호</th>
-          <th>제목</th>
-          <th style="width: 150px;">지역</th>
-          <th style="width: 120px;">작성자</th>
-          <th style="width: 180px;">작성일</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="match, loop : ${matchList}">
-          <td th:text="${loop.count}"></td>
-          <td class="text-start">
-            <a href="#" class="text-decoration-none text-primary fw-semibold match-detail-link"
-               th:data-id="${match.id}" th:text="${match.title}"></a>
-          </td>
-          <td th:text="${match.stadiumLocation}"></td>
-          <td th:text="${match.nickname}"></td>
-          <td th:text="${#temporals.format(match.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-        </tr>
-        </tbody>
-      </table>
+    <!-- Match Detail Modal -->
+    <div class="modal fade" id="matchDetailModal" tabindex="-1" aria-labelledby="matchDetailModalLabel">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="matchDetailModalLabel">매칭 상세 정보</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="닫기"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 상세 정보가 여기에 채워짐 -->
+                    <div id="modalContent">로딩 중...</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- Match Detail Modal -->
-  <div class="modal fade" id="matchDetailModal" tabindex="-1" aria-labelledby="matchDetailModalLabel">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="matchDetailModalLabel">매칭 상세 정보</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="닫기"></button>
-        </div>
-        <div class="modal-body">
-          <!-- 상세 정보가 여기에 채워짐 -->
-          <div id="modalContent">로딩 중...</div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script layout:fragment="script" type="text/javascript">
-<!--      const regionData = {-->
-<!--        "서울특별시": {-->
-<!--          "강남구": ["역삼동", "신사동", "논현동"],-->
-<!--          "마포구": ["합정동", "서교동"]-->
-<!--        },-->
-<!--        "경기도": {-->
-<!--          "수원시": ["영통동", "권선동"],-->
-<!--          "용인시": ["수지구", "기흥구"]-->
-<!--        }-->
-<!--      };-->
-
-<!--      const sidoSelect = document.getElementById("sidoSelect");-->
-<!--      const sigunguSelect = document.getElementById("sigunguSelect");-->
-<!--      const dongSelect = document.getElementById("dongSelect");-->
-
-<!--      sidoSelect.addEventListener("change", function () {-->
-<!--        const selectedSido = this.value;-->
-<!--        sigunguSelect.innerHTML = `<option value="">선택</option>`;-->
-<!--        dongSelect.innerHTML = `<option value="">군/구를 먼저 선택하세요</option>`;-->
-<!--        dongSelect.disabled = true;-->
-
-<!--        if (selectedSido && regionData[selectedSido]) {-->
-<!--          sigunguSelect.disabled = false;-->
-<!--          Object.keys(regionData[selectedSido]).forEach(sigungu => {-->
-<!--            const option = document.createElement("option");-->
-<!--            option.value = sigungu;-->
-<!--            option.text = sigungu;-->
-<!--            sigunguSelect.appendChild(option);-->
-<!--          });-->
-<!--        } else {-->
-<!--          sigunguSelect.disabled = true;-->
-<!--        }-->
-<!--      });-->
-
-<!--      sigunguSelect.addEventListener("change", function () {-->
-<!--        const selectedSido = sidoSelect.value;-->
-<!--        const selectedSigungu = this.value;-->
-<!--        dongSelect.innerHTML = `<option value="">선택</option>`;-->
-
-<!--        if (regionData[selectedSido]?.[selectedSigungu]) {-->
-<!--          dongSelect.disabled = false;-->
-<!--          regionData[selectedSido][selectedSigungu].forEach(dong => {-->
-<!--            const option = document.createElement("option");-->
-<!--            option.value = dong;-->
-<!--            option.text = dong;-->
-<!--            dongSelect.appendChild(option);-->
-<!--          });-->
-<!--        } else {-->
-<!--          dongSelect.disabled = true;-->
-<!--        }-->
-<!--      });-->
-
-      <!-- Detail -->
-      document.addEventListener("DOMContentLoaded", () => {
-          const modalElement = document.getElementById("matchDetailModal");
-          const modalContent = document.getElementById("modalContent");
-          const modal = new bootstrap.Modal(modalElement);
-
-          document.querySelectorAll(".match-detail-link").forEach(link => {
-            link.addEventListener("click", async event => {
-              event.preventDefault();
-              const matchId = link.dataset.id;
-
-              // 상세 정보 요청
-              try {
-                modalContent.innerHTML = "로딩 중...";
-                const response = await fetch(`/match/${matchId}`); // ← JSON API 엔드포인트
-                if (!response.ok) throw new Error("서버 응답 오류");
-                const match = await response.json();
-
-                modalContent.innerHTML = `
-                  <div class="container my-3">
-                    <div class="card shadow-sm rounded">
-                      <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-4">
-                          <h4 class="fw-bold mb-0">${match.title}</h4>
-                          <small class="text-muted">등록일: ${match.createDate}</small>
-                        </div>
-
-                        <h5 class="text-primary fw-semibold mb-3">1. 기본 정보</h5>
-                        <div class="row mb-4">
-                          <div class="col-md-4 mb-2"><strong>스포츠 종목:</strong> ${match.kind}</div>
-                          <div class="col-md-4 mb-2"><strong>활동명:</strong> ${match.nickname}</div>
-                          <div class="col-md-4 mb-2"><strong>연락처:</strong> ${match.phoneNumber || "-"}</div>
-                        </div>
-
-                        <h5 class="text-primary fw-semibold mb-3">2. 경기 정보</h5>
-                        <div class="row mb-3">
-                          <div class="col-md-6 mb-2"><strong>경기장 이름:</strong> ${match.stadiumName}</div>
-                          <div class="col-md-6 mb-2"><strong>경기장 위치:</strong> ${match.stadiumLocation}</div>
-                        </div>
-                        <div class="row mb-3">
-                          <div class="col-md-6 mb-2"><strong>경기 시작 시간:</strong> ${match.startTime}</div>
-                          <div class="col-md-6 mb-2"><strong>경기 종료 시간:</strong> ${match.endTime}</div>
-                        </div>
-                        <div class="mb-3"><strong>경기 수준:</strong> ${match.level}</div>
-
-                        <h5 class="text-primary fw-semibold mt-4 mb-3">3. 비용 정보</h5>
-                        <div class="row mb-4">
-                          <div class="col-md-6 mb-2"><strong>총 비용:</strong> ${match.totalPrice} 원</div>
-                          <div class="col-md-6 mb-2"><strong>상대팀 부담:</strong> ${match.cost} 원</div>
-                        </div>
-
-                        <h5 class="text-primary fw-semibold mt-4 mb-3">4. 기타 설명</h5>
-                        <div class="p-3 bg-light border rounded">
-                          <p class="mb-0">${match.content || "등록된 설명이 없습니다."}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                `;
-
-                modal.show();
-              } catch (err) {
-                modalContent.innerHTML = `<div class="alert alert-danger">상세 정보를 불러오지 못했습니다.</div>`;
-                modal.show();
-              }
-            });
-          });
-        });
-  </script>
-
-<!--  <div class="p-6 sm:p-10 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white min-h-screen">-->
-<!--    &lt;!&ndash; Title &ndash;&gt;-->
-<!--    <div class="mb-8 text-center">-->
-<!--      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-2">🏟️ 매칭팀 모집 게시판</h1>-->
-<!--      <p class="text-slate-600 dark:text-slate-300">경기장을 보유한 팀이 상대 팀을 모집합니다.</p>-->
-<!--    </div>-->
+    <!--  <div class="p-6 sm:p-10 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white min-h-screen">-->
+    <!--    &lt;!&ndash; Title &ndash;&gt;-->
+    <!--    <div class="mb-8 text-center">-->
+    <!--      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-2">🏟️ 매칭팀 모집 게시판</h1>-->
+    <!--      <p class="text-slate-600 dark:text-slate-300">경기장을 보유한 팀이 상대 팀을 모집합니다.</p>-->
+    <!--    </div>-->
 
     <!-- 필터 및 검색 영역 -->
-<!--    <section id="filterSection" role="region" aria-label="검색 및 필터" class="mb-16">-->
-<!--      <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-lg px-8 py-8 space-y-8">-->
-<!--        <h2 class="text-lg font-semibold text-slate-700 dark:text-white mb-2">🔍 조건 검색</h2>-->
+    <!--    <section id="filterSection" role="region" aria-label="검색 및 필터" class="mb-16">-->
+    <!--      <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-lg px-8 py-8 space-y-8">-->
+    <!--        <h2 class="text-lg font-semibold text-slate-700 dark:text-white mb-2">🔍 조건 검색</h2>-->
 
-<!--        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">-->
-<!--          &lt;!&ndash; 시/도 &ndash;&gt;-->
-<!--          <div class="w-full">-->
-<!--            <label for="sidoSelect" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">시/도</label>-->
-<!--            <select id="sidoSelect" class="w-full px-3 py-2 border rounded-md bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600">-->
-<!--              <option value="">선택</option>-->
-<!--              <option value="서울특별시">서울특별시</option>-->
-<!--              <option value="부산광역시">부산광역시</option>-->
-<!--              <option value="경기도">경기도</option>-->
-<!--            </select>-->
-<!--          </div>-->
+    <!--        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">-->
+    <!--          &lt;!&ndash; 시/도 &ndash;&gt;-->
+    <!--          <div class="w-full">-->
+    <!--            <label for="sidoSelect" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">시/도</label>-->
+    <!--            <select id="sidoSelect" class="w-full px-3 py-2 border rounded-md bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600">-->
+    <!--              <option value="">선택</option>-->
+    <!--              <option value="서울특별시">서울특별시</option>-->
+    <!--              <option value="부산광역시">부산광역시</option>-->
+    <!--              <option value="경기도">경기도</option>-->
+    <!--            </select>-->
+    <!--          </div>-->
 
-<!--          &lt;!&ndash; 군/구 &ndash;&gt;-->
-<!--          <div class="w-full">-->
-<!--            <label for="sigunguSelect" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">군/구</label>-->
-<!--            <select id="sigunguSelect" class="w-full px-3 py-2 border rounded-md bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" disabled>-->
-<!--              <option value="">시/도를 먼저 선택</option>-->
-<!--            </select>-->
-<!--          </div>-->
+    <!--          &lt;!&ndash; 군/구 &ndash;&gt;-->
+    <!--          <div class="w-full">-->
+    <!--            <label for="sigunguSelect" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">군/구</label>-->
+    <!--            <select id="sigunguSelect" class="w-full px-3 py-2 border rounded-md bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" disabled>-->
+    <!--              <option value="">시/도를 먼저 선택</option>-->
+    <!--            </select>-->
+    <!--          </div>-->
 
-<!--          &lt;!&ndash; 읍/면/동 &ndash;&gt;-->
-<!--          <div class="w-full">-->
-<!--            <label for="dongSelect" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">읍/면/동</label>-->
-<!--            <select id="dongSelect" class="w-full px-3 py-2 border rounded-md bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" disabled>-->
-<!--              <option value="">군/구를 먼저 선택</option>-->
-<!--            </select>-->
-<!--          </div>-->
+    <!--          &lt;!&ndash; 읍/면/동 &ndash;&gt;-->
+    <!--          <div class="w-full">-->
+    <!--            <label for="dongSelect" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">읍/면/동</label>-->
+    <!--            <select id="dongSelect" class="w-full px-3 py-2 border rounded-md bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" disabled>-->
+    <!--              <option value="">군/구를 먼저 선택</option>-->
+    <!--            </select>-->
+    <!--          </div>-->
 
-<!--          &lt;!&ndash; 날짜 &ndash;&gt;-->
-<!--          <div class="w-full">-->
-<!--            <label for="matchDate" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">날짜</label>-->
-<!--            <input type="date" id="matchDate" name="matchDate"-->
-<!--                   class="w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" />-->
-<!--          </div>-->
+    <!--          &lt;!&ndash; 날짜 &ndash;&gt;-->
+    <!--          <div class="w-full">-->
+    <!--            <label for="matchDate" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">날짜</label>-->
+    <!--            <input type="date" id="matchDate" name="matchDate"-->
+    <!--                   class="w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" />-->
+    <!--          </div>-->
 
-<!--          &lt;!&ndash; 시작 시간 &ndash;&gt;-->
-<!--          <div class="w-full">-->
-<!--            <label for="startTime" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">시작 시간</label>-->
-<!--            <input type="time" id="startTime" name="startTime"-->
-<!--                   class="w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" />-->
-<!--          </div>-->
+    <!--          &lt;!&ndash; 시작 시간 &ndash;&gt;-->
+    <!--          <div class="w-full">-->
+    <!--            <label for="startTime" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">시작 시간</label>-->
+    <!--            <input type="time" id="startTime" name="startTime"-->
+    <!--                   class="w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" />-->
+    <!--          </div>-->
 
-<!--          &lt;!&ndash; 종료 시간 &ndash;&gt;-->
-<!--          <div class="w-full">-->
-<!--            <label for="endTime" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">종료 시간</label>-->
-<!--            <input type="time" id="endTime" name="endTime"-->
-<!--                   class="w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" />-->
-<!--          </div>-->
-<!--        </div>-->
+    <!--          &lt;!&ndash; 종료 시간 &ndash;&gt;-->
+    <!--          <div class="w-full">-->
+    <!--            <label for="endTime" class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">종료 시간</label>-->
+    <!--            <input type="time" id="endTime" name="endTime"-->
+    <!--                   class="w-full px-3 py-2 border rounded-md shadow-sm bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600" />-->
+    <!--          </div>-->
+    <!--        </div>-->
 
-<!--        &lt;!&ndash; 검색창 &ndash;&gt;-->
-<!--        <div class="flex flex-col sm:flex-row items-stretch gap-4">-->
-<!--          <div class="flex-grow">-->
-<!--            <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-slate-200">제목 또는 내용 검색</label>-->
-<!--            <input type="text" placeholder="예: 강남 저녁 경기 구합니다"-->
-<!--                   class="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700" />-->
-<!--          </div>-->
-<!--          <div class="flex items-end">-->
-<!--            <button class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition h-fit mt-[1.75rem]">검색</button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </section>-->
+    <!--        &lt;!&ndash; 검색창 &ndash;&gt;-->
+    <!--        <div class="flex flex-col sm:flex-row items-stretch gap-4">-->
+    <!--          <div class="flex-grow">-->
+    <!--            <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-slate-200">제목 또는 내용 검색</label>-->
+    <!--            <input type="text" placeholder="예: 강남 저녁 경기 구합니다"-->
+    <!--                   class="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700" />-->
+    <!--          </div>-->
+    <!--          <div class="flex items-end">-->
+    <!--            <button class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition h-fit mt-[1.75rem]">검색</button>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </section>-->
 
     <!-- 게시글 리스트 영역 -->
-<!--    <section id="postListSection" role="region" aria-label="매칭 모집 게시글 리스트">-->
-<!--      <div class="mb-6">-->
-<!--        <h2 class="text-xl font-semibold text-slate-800 dark:text-white">📋 모집 중인 팀 목록</h2>-->
-<!--        <div class="h-[1px] bg-slate-200 dark:bg-slate-700 mt-2"></div>-->
-<!--      </div>-->
+    <!--    <section id="postListSection" role="region" aria-label="매칭 모집 게시글 리스트">-->
+    <!--      <div class="mb-6">-->
+    <!--        <h2 class="text-xl font-semibold text-slate-800 dark:text-white">📋 모집 중인 팀 목록</h2>-->
+    <!--        <div class="h-[1px] bg-slate-200 dark:bg-slate-700 mt-2"></div>-->
+    <!--      </div>-->
 
-<!--      <div class="mt-10 space-y-4">-->
-<!--        <a href="/match/123" class="block bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 transition rounded-xl p-6 shadow border border-slate-200 dark:border-slate-700">-->
-<!--          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">-->
-<!--            <div class="space-y-1">-->
-<!--              <div class="text-sm text-slate-500 dark:text-slate-400">서울 · 2025-06-16 (19:00)</div>-->
-<!--              <h3 class="text-xl font-semibold text-slate-800 dark:text-white">[풋살] 저녁 7시 강남 경기 가능하신 분 구합니다</h3>-->
-<!--            </div>-->
-<!--            <div class="text-sm text-right text-slate-500 dark:text-slate-400 mt-2 sm:mt-0">-->
-<!--              <div>홍길동</div>-->
-<!--              <div>2025-06-11</div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
+    <!--      <div class="mt-10 space-y-4">-->
+    <!--        <a href="/match/123" class="block bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 transition rounded-xl p-6 shadow border border-slate-200 dark:border-slate-700">-->
+    <!--          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">-->
+    <!--            <div class="space-y-1">-->
+    <!--              <div class="text-sm text-slate-500 dark:text-slate-400">서울 · 2025-06-16 (19:00)</div>-->
+    <!--              <h3 class="text-xl font-semibold text-slate-800 dark:text-white">[풋살] 저녁 7시 강남 경기 가능하신 분 구합니다</h3>-->
+    <!--            </div>-->
+    <!--            <div class="text-sm text-right text-slate-500 dark:text-slate-400 mt-2 sm:mt-0">-->
+    <!--              <div>홍길동</div>-->
+    <!--              <div>2025-06-11</div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </a>-->
 
-<!--        <a href="/match/124" class="block bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 transition rounded-xl p-6 shadow border border-slate-200 dark:border-slate-700">-->
-<!--          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">-->
-<!--            <div class="space-y-1">-->
-<!--              <div class="text-sm text-slate-500 dark:text-slate-400">부산 · 2025-06-17 (14:00)</div>-->
-<!--              <h3 class="text-xl font-semibold text-slate-800 dark:text-white">[축구] 주말 오후 팀 매칭 원합니다</h3>-->
-<!--            </div>-->
-<!--            <div class="text-sm text-right text-slate-500 dark:text-slate-400 mt-2 sm:mt-0">-->
-<!--              <div>이영희</div>-->
-<!--              <div>2025-06-11</div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-<!--      </div>-->
+    <!--        <a href="/match/124" class="block bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 transition rounded-xl p-6 shadow border border-slate-200 dark:border-slate-700">-->
+    <!--          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">-->
+    <!--            <div class="space-y-1">-->
+    <!--              <div class="text-sm text-slate-500 dark:text-slate-400">부산 · 2025-06-17 (14:00)</div>-->
+    <!--              <h3 class="text-xl font-semibold text-slate-800 dark:text-white">[축구] 주말 오후 팀 매칭 원합니다</h3>-->
+    <!--            </div>-->
+    <!--            <div class="text-sm text-right text-slate-500 dark:text-slate-400 mt-2 sm:mt-0">-->
+    <!--              <div>이영희</div>-->
+    <!--              <div>2025-06-11</div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </a>-->
+    <!--      </div>-->
 
-<!--      &lt;!&ndash; Pagination &ndash;&gt;-->
-<!--      <div class="mt-10 flex justify-center">-->
-<!--        <nav class="inline-flex rounded-md shadow-sm isolate -space-x-px" aria-label="Pagination">-->
-<!--          <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-600">이전</a>-->
-<!--          <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium bg-blue-600 text-white border border-slate-300">1</a>-->
-<!--          <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-600">2</a>-->
-<!--          <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-600">다음</a>-->
-<!--        </nav>-->
-<!--      </div>-->
-<!--    </section>-->
-<!--  </div>-->
+    <!--      &lt;!&ndash; Pagination &ndash;&gt;-->
+    <!--      <div class="mt-10 flex justify-center">-->
+    <!--        <nav class="inline-flex rounded-md shadow-sm isolate -space-x-px" aria-label="Pagination">-->
+    <!--          <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-600">이전</a>-->
+    <!--          <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium bg-blue-600 text-white border border-slate-300">1</a>-->
+    <!--          <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-600">2</a>-->
+    <!--          <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-medium bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-600">다음</a>-->
+    <!--        </nav>-->
+    <!--      </div>-->
+    <!--    </section>-->
+    <!--  </div>-->
 </div>
+<script layout:fragment="script" type="text/javascript">
+    <!--      const regionData = {-->
+    <!--        "서울특별시": {-->
+    <!--          "강남구": ["역삼동", "신사동", "논현동"],-->
+    <!--          "마포구": ["합정동", "서교동"]-->
+    <!--        },-->
+    <!--        "경기도": {-->
+    <!--          "수원시": ["영통동", "권선동"],-->
+    <!--          "용인시": ["수지구", "기흥구"]-->
+    <!--        }-->
+    <!--      };-->
+
+    <!--      const sidoSelect = document.getElementById("sidoSelect");-->
+    <!--      const sigunguSelect = document.getElementById("sigunguSelect");-->
+    <!--      const dongSelect = document.getElementById("dongSelect");-->
+
+    <!--      sidoSelect.addEventListener("change", function () {-->
+    <!--        const selectedSido = this.value;-->
+    <!--        sigunguSelect.innerHTML = `<option value="">선택</option>`;-->
+    <!--        dongSelect.innerHTML = `<option value="">군/구를 먼저 선택하세요</option>`;-->
+    <!--        dongSelect.disabled = true;-->
+
+    <!--        if (selectedSido && regionData[selectedSido]) {-->
+    <!--          sigunguSelect.disabled = false;-->
+    <!--          Object.keys(regionData[selectedSido]).forEach(sigungu => {-->
+    <!--            const option = document.createElement("option");-->
+    <!--            option.value = sigungu;-->
+    <!--            option.text = sigungu;-->
+    <!--            sigunguSelect.appendChild(option);-->
+    <!--          });-->
+    <!--        } else {-->
+    <!--          sigunguSelect.disabled = true;-->
+    <!--        }-->
+    <!--      });-->
+
+    <!--      sigunguSelect.addEventListener("change", function () {-->
+    <!--        const selectedSido = sidoSelect.value;-->
+    <!--        const selectedSigungu = this.value;-->
+    <!--        dongSelect.innerHTML = `<option value="">선택</option>`;-->
+
+    <!--        if (regionData[selectedSido]?.[selectedSigungu]) {-->
+    <!--          dongSelect.disabled = false;-->
+    <!--          regionData[selectedSido][selectedSigungu].forEach(dong => {-->
+    <!--            const option = document.createElement("option");-->
+    <!--            option.value = dong;-->
+    <!--            option.text = dong;-->
+    <!--            dongSelect.appendChild(option);-->
+    <!--          });-->
+    <!--        } else {-->
+    <!--          dongSelect.disabled = true;-->
+    <!--        }-->
+    <!--      });-->
+
+          <!-- Detail -->
+          document.addEventListener("DOMContentLoaded", () => {
+              const modalElement = document.getElementById("matchDetailModal");
+              const modalContent = document.getElementById("modalContent");
+              const modal = new bootstrap.Modal(modalElement);
+
+              document.querySelectorAll(".match-detail-link").forEach(link => {
+                link.addEventListener("click", async event => {
+                  event.preventDefault();
+                  const matchId = link.dataset.id;
+
+                  // 상세 정보 요청
+                  try {
+                    modalContent.innerHTML = "로딩 중...";
+                    const response = await fetch(`/match/${matchId}`); // ← JSON API 엔드포인트
+                    if (!response.ok) throw new Error("서버 응답 오류");
+                    const match = await response.json();
+
+                    modalContent.innerHTML = `
+                      <div class="container my-3">
+                        <div class="card shadow-sm rounded">
+                          <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-4">
+                              <h4 class="fw-bold mb-0">${match.title}</h4>
+                              <small class="text-muted">등록일: ${match.createDate}</small>
+                            </div>
+
+                            <h5 class="text-primary fw-semibold mb-3">1. 기본 정보</h5>
+                            <div class="row mb-4">
+                              <div class="col-md-4 mb-2"><strong>스포츠 종목:</strong> ${match.kind}</div>
+                              <div class="col-md-4 mb-2"><strong>활동명:</strong> ${match.nickname}</div>
+                              <div class="col-md-4 mb-2"><strong>연락처:</strong> ${match.phoneNumber || "-"}</div>
+                            </div>
+
+                            <h5 class="text-primary fw-semibold mb-3">2. 경기 정보</h5>
+                            <div class="row mb-3">
+                              <div class="col-md-6 mb-2"><strong>경기장 이름:</strong> ${match.stadiumName}</div>
+                              <div class="col-md-6 mb-2"><strong>경기장 위치:</strong> ${match.stadiumLocation}</div>
+                            </div>
+                            <div class="row mb-3">
+                              <div class="col-md-6 mb-2"><strong>경기 시작 시간:</strong> ${match.startTime}</div>
+                              <div class="col-md-6 mb-2"><strong>경기 종료 시간:</strong> ${match.endTime}</div>
+                            </div>
+                            <div class="mb-3"><strong>경기 수준:</strong> ${match.level}</div>
+
+                            <h5 class="text-primary fw-semibold mt-4 mb-3">3. 비용 정보</h5>
+                            <div class="row mb-4">
+                              <div class="col-md-6 mb-2"><strong>총 비용:</strong> ${match.totalPrice} 원</div>
+                              <div class="col-md-6 mb-2"><strong>상대팀 부담:</strong> ${match.cost} 원</div>
+                            </div>
+
+                            <h5 class="text-primary fw-semibold mt-4 mb-3">4. 기타 설명</h5>
+                            <div class="p-3 bg-light border rounded">
+                              <p class="mb-0">${match.content || "등록된 설명이 없습니다."}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+
+                    modal.show();
+                  } catch (err) {
+                    modalContent.innerHTML = `<div class="alert alert-danger">상세 정보를 불러오지 못했습니다.</div>`;
+                    modal.show();
+                  }
+                });
+              });
+            });
+</script>
 </html>

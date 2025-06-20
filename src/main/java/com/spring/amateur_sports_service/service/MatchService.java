@@ -36,8 +36,9 @@ public class MatchService {
         match.setCategory("Match");
         match.setKind(matchRegisterForm.getSportsKind());
         match.setNickname(matchRegisterForm.getNickname());
-        match.setStartTime(matchRegisterForm.getStartDateTime());
-        match.setEndTime(matchRegisterForm.getEndDateTime());
+        match.setMatchDate(matchRegisterForm.getMatchDate());
+        match.setStartTime(matchRegisterForm.getStartTime());
+        match.setEndTime(matchRegisterForm.getEndTime());
         match.setStadiumName(matchRegisterForm.getStadium());
         match.setLevel(matchRegisterForm.getLevel());
         match.setTotalPrice(matchRegisterForm.getTotalPrice());
