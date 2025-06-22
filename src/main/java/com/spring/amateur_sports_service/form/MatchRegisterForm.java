@@ -1,6 +1,7 @@
-package com.spring.amateur_sports_service.dto;
+package com.spring.amateur_sports_service.form;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ public class MatchRegisterForm {
     @NotEmpty(message = "경기장 이름은 필수 항목입니다.")
     private String stadium;
 
-    @NotEmpty(message = "경기장 위치는 필수 항목입니다.")
+    @NotEmpty(message = "경기장 주소는 필수 항목입니다.")
     private String location;
 
     @NotEmpty(message = "카테고리는 필수 항목입니다.")
@@ -30,13 +31,13 @@ public class MatchRegisterForm {
     @NotEmpty(message = "활동명은 필수 항목입니다.")
     private String nickname;
 
-    @NotEmpty(message = "경기 날짜는 필수 항목입니다.")
+    @NotNull(message = "경기 날짜는 필수 항목입니다.")
     private LocalDate matchDate;
 
-    @NotEmpty(message = "경기 시작 시간은 필수 항목입니다")
+    @NotNull(message = "경기 시작 시간은 필수 항목입니다.")
     private LocalTime startTime;
 
-    @NotEmpty(message = "경기 종료 시간은 필수 항목입니다")
+    @NotNull(message = "경기 종료 시간은 필수 항목입니다.")
     private LocalTime endTime;
 
     @NotEmpty(message = "경기 수준은 필수 항목입니다.")
@@ -48,6 +49,7 @@ public class MatchRegisterForm {
     @NotEmpty(message = "상대 부담 비용은 필수 항목입니다.")
     private String cost;
 
+    @NotEmpty(message = "연락처는 필수 항목입니다.")
     private String phoneNumber;
 
     private String content;

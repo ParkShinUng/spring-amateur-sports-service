@@ -2,7 +2,7 @@ package com.spring.amateur_sports_service.service;
 
 import com.spring.amateur_sports_service.common.DataNotFoundException;
 import com.spring.amateur_sports_service.domain.Match;
-import com.spring.amateur_sports_service.dto.MatchRegisterForm;
+import com.spring.amateur_sports_service.form.MatchRegisterForm;
 import com.spring.amateur_sports_service.repository.MatchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

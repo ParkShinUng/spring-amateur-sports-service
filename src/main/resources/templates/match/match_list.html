@@ -10,25 +10,31 @@
         <div class="table-responsive">
             <table class="table table-hover align-middle text-center">
                 <thead class="table-dark">
-                <tr>
-                    <th style="width: 60px;">번호</th>
-                    <th>제목</th>
-                    <th style="width: 150px;">지역</th>
-                    <th style="width: 120px;">작성자</th>
-                    <th style="width: 180px;">작성일</th>
-                </tr>
+                    <tr>
+                        <th style="width: 60px;">번호</th>
+                        <th style="width: 80px;">종목</th>
+                        <th>제목</th>
+                        <th style="width: 150px;">경기일자</th>
+                        <th style="width: 150px;">경기시간</th>
+                        <th style="width: 150px;">지역</th>
+                        <th style="width: 150px;">경기장</th>
+                        <th style="width: 150px;">작성일</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr th:each="match, loop : ${matchList}">
-                    <td th:text="${loop.count}"></td>
-                    <td class="text-start">
-                        <a href="#" class="text-decoration-none text-primary fw-semibold match-detail-link"
-                           th:data-id="${match.id}" th:text="${match.title}"></a>
-                    </td>
-                    <td th:text="${match.stadiumLocation}"></td>
-                    <td th:text="${match.nickname}"></td>
-                    <td th:text="${#temporals.format(match.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-                </tr>
+                    <tr th:each="match, loop : ${matchList}">
+                        <td th:text="${loop.count}"></td>
+                        <td th:text="${match.kind}"></td>
+                        <td class="text-center">
+                            <a href="#" class="text-decoration-none text-primary fw-semibold match-detail-link"
+                               th:data-id="${match.id}" th:text="${match.title}"></a>
+                        </td>
+                        <td th:text="${#temporals.format(match.matchDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="@{|${#temporals.format(match.startTime, 'HH:mm')} - ${#temporals.format(match.endTime, 'HH:mm')}|}"></td>
+                        <td th:text="${match.stadiumLocation}"></td>
+                        <td th:text="${match.stadiumName}"></td>
+                        <td th:text="${#temporals.format(match.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

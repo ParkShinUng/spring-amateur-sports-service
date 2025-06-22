@@ -2,7 +2,7 @@ package com.spring.amateur_sports_service.controller;
 
 import com.spring.amateur_sports_service.domain.Match;
 import com.spring.amateur_sports_service.dto.MatchDto;
-import com.spring.amateur_sports_service.dto.MatchRegisterForm;
+import com.spring.amateur_sports_service.form.MatchRegisterForm;
 import com.spring.amateur_sports_service.service.MatchService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -47,13 +47,11 @@ public class MatchController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid MatchRegisterForm matchRegisterForm, Model model,
-                           BindingResult bindingResult, Principal principal) {
+    public String register(@Valid MatchRegisterForm matchRegisterForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "redirect:/match/register";
+            return "match/match_form";
         }
-
         this.matchService.create(matchRegisterForm);
-        return "match/match_list";
+        return "redirect:/match/match_list";
     }
 }
