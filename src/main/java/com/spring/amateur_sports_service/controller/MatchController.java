@@ -24,6 +24,8 @@ import java.util.List;
 public class MatchController {
     private final MatchService matchService;
 
+    List<String> sportsKindList = List.of("축구", "풋살", "농구", "야구", "배드민턴", "테니스");
+
     @GetMapping("/list")
     public String search(Model model) {
         List<Match> matchList =  this.matchService.getMatchList();
@@ -40,15 +42,14 @@ public class MatchController {
 
     @GetMapping("/register")
     public String register(MatchRegisterForm matchRegisterForm, Model model) {
-        List<String> sportsKindList = List.of("축구", "풋살", "농구", "야구", "배드민턴", "테니스");
         model.addAttribute("sportsKindList", sportsKindList);
-        model.addAttribute("matchRegisterForm", new MatchRegisterForm());
         return "match/match_form";
     }
 
     @PostMapping("/register")
-    public String register(@Valid MatchRegisterForm matchRegisterForm, BindingResult bindingResult) {
+    public String register(@Valid MatchRegisterForm matchRegisterForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("sportsKindList", sportsKindList);
             return "match/match_form";
         }
         this.matchService.create(matchRegisterForm);
