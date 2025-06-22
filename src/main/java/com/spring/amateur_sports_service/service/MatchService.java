@@ -33,7 +33,7 @@ public class MatchService {
         Match match = new Match();
         match.setTitle(matchRegisterForm.getTitle());
         match.setStadiumLocation(matchRegisterForm.getLocation());
-        match.setCategory("Match");
+        match.setCategory("match");
         match.setKind(matchRegisterForm.getSportsKind());
         match.setNickname(matchRegisterForm.getNickname());
         match.setMatchDate(matchRegisterForm.getMatchDate());

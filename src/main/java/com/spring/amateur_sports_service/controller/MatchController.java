@@ -53,6 +53,6 @@ public class MatchController {
             return "match/match_form";
         }
         this.matchService.create(matchRegisterForm);
-        return "redirect:/match/match_list";
+        return "redirect:/match/list";
     }
 }

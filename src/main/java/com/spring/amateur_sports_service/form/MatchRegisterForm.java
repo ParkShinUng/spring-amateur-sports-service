@@ -25,9 +25,6 @@ public class MatchRegisterForm {
     @NotEmpty(message = "경기장 주소는 필수 항목입니다.")
     private String location;
 
-    @NotEmpty(message = "카테고리는 필수 항목입니다.")
-    private String category;
-
     @NotEmpty(message = "활동명은 필수 항목입니다.")
     private String nickname;
 
