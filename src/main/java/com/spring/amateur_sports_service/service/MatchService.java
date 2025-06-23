@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class MatchService {
     private final MatchRepository matchRepository;
+    private final ApiService apiService;
 
     public List<Match> getMatchList() {
         return this.matchRepository.findAll();
@@ -49,4 +51,9 @@ public class MatchService {
 
         this.matchRepository.save(match);
     }
+
+    public Map<String, List<String>> getAdministrativeData() {
+        return apiService.getAdministrativeData();
+    }
+
 }

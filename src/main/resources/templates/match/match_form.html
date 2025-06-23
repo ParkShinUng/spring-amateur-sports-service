@@ -23,24 +23,23 @@
             <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('stadium')}" th:errors="*{stadium}"></p>
         </div>
         <div class="mb-3">
-            <label for="location" class="form-label">경기장 주소 <span class="text-red-500">*</span></label>
-            <div class="row g-2 mb-2">
+            <label class="form-label">경기장 지역 선택 <span class="text-red-500">*</span></label>
+            <div class="row g-2">
                 <div class="col-md-4">
-                    <input type="text" id="postcode" placeholder="우편번호" class="form-control">
+                    <select id="sidoSelect" class="form-select">
+                        <option value="">선택</option>
+                        <option th:each="sido : ${sidoList}" th:value="${sido}" th:text="${sido}"></option>
+                    </select>
                 </div>
                 <div class="col-md-4">
-                    <button type="button" onclick="execDaumPostcode()" class="btn btn-outline-primary w-100">우편번호 찾기
-                    </button>
+                    <select id="sigunguSelect" class="form-select" disabled>
+                        <option value="">먼저 시도를 선택하세요</option>
+                    </select>
                 </div>
-            </div>
-            <div class="mb-2">
-                <input type="text" th:field="*{location}" id="address" placeholder="주소" class="form-control">
-            </div>
-            <div class="mb-2">
-                <input type="text" id="detailAddress" placeholder="상세주소" class="form-control">
             </div>
             <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
         </div>
+
         <!-- 경기 일정 -->
         <div class="mb-3">
             <label class="form-label">경기 날짜 <span class="text-red-500">*</span></label>
@@ -104,7 +103,29 @@
         </div>
     </form>
 </div>
-<script layout:fragment="script" type="text/javascript">
+<script layout:fragment="script" type="text/javascript" th:inline="javascript">
+    const administrativeData = [[${administrativeData}]];
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const sidoSelect = document.getElementById("sidoSelect");
+        const sigunguSelect = document.getElementById("sigunguSelect");
+
+        sidoSelect.addEventListener("change", () => {
+            const selectedSido = sidoSelect.value;
+            sigunguSelect.innerHTML = '<option value="">선택</option>';
+
+            if (selectedSido && administrativeData[selectedSido]) {
+                administrativeData[selectedSido].forEach(sigungu => {
+                    const option = new Option(sigungu, sigungu);
+                    sigunguSelect.appendChild(option);
+                });
+                sigunguSelect.disabled = false;
+            } else {
+                sigunguSelect.disabled = true;
+            }
+        });
+    });
+
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
