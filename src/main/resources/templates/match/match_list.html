@@ -236,79 +236,79 @@
     <!--        }-->
     <!--      });-->
 
-          <!-- Detail -->
-          document.addEventListener("DOMContentLoaded", () => {
-              const modalElement = document.getElementById("matchDetailModal");
-              const modalContent = document.getElementById("modalContent");
-              const modal = new bootstrap.Modal(modalElement);
+      <!-- Detail -->
+      document.addEventListener("DOMContentLoaded", () => {
+          const modalElement = document.getElementById("matchDetailModal");
+          const modalContent = document.getElementById("modalContent");
+          const modal = new bootstrap.Modal(modalElement);
 
-              document.querySelectorAll(".match-detail-link").forEach(link => {
-                link.addEventListener("click", async event => {
-                  event.preventDefault();
-                  const matchId = link.dataset.id;
+          document.querySelectorAll(".match-detail-link").forEach(link => {
+            link.addEventListener("click", async event => {
+              event.preventDefault();
+              const matchId = link.dataset.id;
 
-                  // 상세 정보 요청
-                  try {
-                    modalContent.innerHTML = "로딩 중...";
-                    const response = await fetch(`/match/${matchId}`); // ← JSON API 엔드포인트
-                    if (!response.ok) throw new Error("서버 응답 오류");
-                    const match = await response.json();
+              // 상세 정보 요청
+              try {
+                modalContent.innerHTML = "로딩 중...";
+                const response = await fetch(`/match/${matchId}`); // ← JSON API 엔드포인트
+                if (!response.ok) throw new Error("서버 응답 오류");
+                const match = await response.json();
 
-                    modalContent.innerHTML = `
-                      <div class="container my-3">
-                        <div class="card shadow-sm rounded">
-                          <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-4">
-                              <h4 class="fw-bold mb-0">${match.title}</h4>
-                              <small class="text-muted">등록일: ${match.createDate}</small>
-                            </div>
+                modalContent.innerHTML = `
+                  <div class="container my-3">
+                    <div class="card shadow-sm rounded">
+                      <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-4">
+                          <h4 class="fw-bold mb-0">${match.title}</h4>
+                          <small class="text-muted">등록일: ${match.createDate}</small>
+                        </div>
 
-                            <h5 class="text-primary fw-semibold mb-3">1. 기본 정보</h5>
-                            <div class="row mb-4">
-                              <div class="col-md-4 mb-2"><strong>스포츠 종목:</strong> ${match.kind}</div>
-                              <div class="col-md-4 mb-2"><strong>활동명:</strong> ${match.nickname}</div>
-                              <div class="col-md-4 mb-2"><strong>연락처:</strong> ${match.phoneNumber || "-"}</div>
-                            </div>
+                        <h5 class="text-primary fw-semibold mb-3">1. 기본 정보</h5>
+                        <div class="row mb-4">
+                          <div class="col-md-4 mb-2"><strong>스포츠 종목:</strong> ${match.kind}</div>
+                          <div class="col-md-4 mb-2"><strong>활동명:</strong> ${match.nickname}</div>
+                          <div class="col-md-4 mb-2"><strong>연락처:</strong> ${match.phoneNumber || "-"}</div>
+                        </div>
 
-                            <h5 class="text-primary fw-semibold mb-3">2. 경기 정보</h5>
-                            <div class="row mb-3">
-                              <div class="col-md-6 mb-2"><strong>경기장 이름:</strong> ${match.stadiumName}</div>
-                              <div class="col-md-6 mb-2"><strong>경기장 위치:</strong> ${match.stadiumLocation}</div>
-                            </div>
-                            <div class="row mb-3">
-                              <div class="col-md-6 mb-2">
-                                <strong>경기 일자:</strong>
-                                <span th:text="${#temporals.format(match.matchDate, 'yyyy-MM-dd')}"></span>
-                              </div>
-                              <div class="col-md-6 mb-2" th:with="timeStr=${#temporals.format(match.startTime, 'HH:mm')} + ' ~ ' + ${#temporals.format(match.endTime, 'HH:mm')}">
-                                <strong>경기 시간:</strong>
-                                <span th:text="${timeStr}"></span>
-                              </div>
-                            </div>
-                            <div class="mb-3"><strong>경기 수준:</strong> ${match.level}</div>
-
-                            <h5 class="text-primary fw-semibold mt-4 mb-3">3. 비용 정보</h5>
-                            <div class="row mb-4">
-                              <div class="col-md-6 mb-2"><strong>총 비용:</strong> ${match.totalPrice} 원</div>
-                              <div class="col-md-6 mb-2"><strong>상대팀 부담:</strong> ${match.cost} 원</div>
-                            </div>
-
-                            <h5 class="text-primary fw-semibold mt-4 mb-3">4. 기타 설명</h5>
-                            <div class="p-3 bg-light border rounded">
-                              <p class="mb-0">${match.content || "등록된 설명이 없습니다."}</p>
-                            </div>
+                        <h5 class="text-primary fw-semibold mb-3">2. 경기 정보</h5>
+                        <div class="row mb-3">
+                          <div class="col-md-6 mb-2"><strong>경기장 이름:</strong> ${match.stadiumName}</div>
+                          <div class="col-md-6 mb-2"><strong>경기장 위치:</strong> ${match.stadiumLocation}</div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md-6 mb-2">
+                            <strong>경기 일자:</strong>
+                            <span th:text="${#temporals.format(match.matchDate, 'yyyy-MM-dd')}"></span>
+                          </div>
+                          <div class="col-md-6 mb-2" th:with="timeStr=${#temporals.format(match.startTime, 'HH:mm')} + ' ~ ' + ${#temporals.format(match.endTime, 'HH:mm')}">
+                            <strong>경기 시간:</strong>
+                            <span th:text="${timeStr}"></span>
                           </div>
                         </div>
-                      </div>
-                    `;
+                        <div class="mb-3"><strong>경기 수준:</strong> ${match.level}</div>
 
-                    modal.show();
-                  } catch (err) {
-                    modalContent.innerHTML = `<div class="alert alert-danger">상세 정보를 불러오지 못했습니다.</div>`;
-                    modal.show();
-                  }
-                });
-              });
+                        <h5 class="text-primary fw-semibold mt-4 mb-3">3. 비용 정보</h5>
+                        <div class="row mb-4">
+                          <div class="col-md-6 mb-2"><strong>총 비용:</strong> ${match.totalPrice} 원</div>
+                          <div class="col-md-6 mb-2"><strong>상대팀 부담:</strong> ${match.cost} 원</div>
+                        </div>
+
+                        <h5 class="text-primary fw-semibold mt-4 mb-3">4. 기타 설명</h5>
+                        <div class="p-3 bg-light border rounded">
+                          <p class="mb-0">${match.content || "등록된 설명이 없습니다."}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+
+                modal.show();
+              } catch (err) {
+                modalContent.innerHTML = `<div class="alert alert-danger">상세 정보를 불러오지 못했습니다.</div>`;
+                modal.show();
+              }
             });
+          });
+        });
 </script>
 </html>

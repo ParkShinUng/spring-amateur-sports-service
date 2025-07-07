@@ -26,18 +26,19 @@
             <label class="form-label">경기장 지역 선택 <span class="text-red-500">*</span></label>
             <div class="row g-2">
                 <div class="col-md-4">
-                    <select id="sidoSelect" class="form-select">
+                    <select th:field="*{sido}" id="sidoSelect" class="form-select">
                         <option value="">선택</option>
                         <option th:each="sido : ${sidoList}" th:value="${sido}" th:text="${sido}"></option>
                     </select>
                 </div>
+                <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('sido')}" th:errors="*{sido}"></p>
                 <div class="col-md-4">
-                    <select id="sigunguSelect" class="form-select" disabled>
+                    <select th:field="*{sigungu}" id="sigunguSelect" class="form-select" disabled>
                         <option value="">먼저 시도를 선택하세요</option>
                     </select>
                 </div>
+                <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('sigungu')}" th:errors="*{sigungu}"></p>
             </div>
-            <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
         </div>
 
         <!-- 경기 일정 -->
